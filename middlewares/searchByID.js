@@ -1,6 +1,6 @@
 const rescue = require('express-rescue');
 const getTalkerJSON = require('../utils/getTalkerJSON');
-const CustomError = require('../utils/CustomError');
+const CustomError = require('../models/CustomError');
 
 const searchByID = rescue(async (req, _res, next) => {
   const { id } = req.params;
