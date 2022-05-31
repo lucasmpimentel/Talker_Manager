@@ -3,7 +3,7 @@ const CustomError = require('../models/CustomError');
 
 const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi;
 
-const checkLogin = rescue((req, res, next) => {
+const checkLogin = rescue((req, _res, next) => {
   const { email, password } = req.body;
   
   if (!email) throw new CustomError(400, 'O campo "email" é obrigatório');
@@ -17,4 +17,14 @@ const checkLogin = rescue((req, res, next) => {
   next();
 });
 
-module.exports = checkLogin;
+const checkToken = rescue((req, _res, next) => {
+  const { authorization } = req.headers;
+  const TOKEN_LENGTH = 16;
+  
+  if (!authorization) throw new CustomError(401, 'Token não encontrado');
+  if (authorization.length !== TOKEN_LENGTH) throw new CustomError(401, 'Token inválido');
+
+  next();
+});
+
+module.exports = { checkLogin, checkToken };
