@@ -9,6 +9,7 @@ const {
   insertNewTalker,
 } = require('../middlewares/newTalkerMiddlewares');
 const editTalker = require('../middlewares/editTalker');
+const deleteTalker = require('../middlewares/deleteTalker');
 
 const routes = express.Router();
 
@@ -42,6 +43,14 @@ checkTalk,
 editTalker,
 (req, res) => {
   res.status(200).json(req.update);
+});
+
+routes.delete('/talker/:id',
+checkToken,
+searchByID,
+deleteTalker,
+(req, res) => {
+  res.status(204).end();
 });
 
 module.exports = routes;
