@@ -8,6 +8,7 @@ const {
   checkTalk,
   insertNewTalker,
 } = require('../middlewares/newTalkerMiddlewares');
+const editTalker = require('../middlewares/editTalker');
 
 const routes = express.Router();
 
@@ -31,6 +32,16 @@ checkTalk,
 insertNewTalker,
 (req, res) => {
   res.status(201).json(req.response);
+});
+
+routes.put('/talker/:id',
+checkToken,
+searchByID,
+checkNewTalker,
+checkTalk,
+editTalker,
+(req, res) => {
+  res.status(200).json(req.update);
 });
 
 module.exports = routes;

@@ -19,7 +19,7 @@ const checkNewTalker = rescue((req, _res, next) => {
 });
 
 const checkEmpty = (talk) => {
-  if (!talk || !talk.watchedAt || !talk.rate) {
+  if (!talk || !talk.watchedAt || (!talk.rate && talk.rate !== 0)) {
     throw new CustomError(
       400,
       'O campo "talk" é obrigatório e "watchedAt" e "rate" não podem ser vazios',
